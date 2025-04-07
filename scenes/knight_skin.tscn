@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://buolotetq6e3t"]
+
+[ext_resource type="PackedScene" uid="uid://xbviaxdpnm0f" path="res://addons/mannequiny-0.3.0.glb" id="1_tcit8"]
+[ext_resource type="Script" uid="uid://pvrcf8eeyml3" path="res://scenes/mannequiny.gd" id="2_y4xeg"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ecsnh"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_fs1wk"]
+graph_offset = Vector2(-33.722, 49.7801)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_ecsnh")
+nodes/StateMachine/position = Vector2(273.143, 84.5714)
+nodes/output/position = Vector2(480, 90.3263)
+node_connections = [&"output", 0, &"StateMachine"]
+
+[node name="KnightSkin" instance=ExtResource("1_tcit8")]
+script = ExtResource("2_y4xeg")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+unique_name_in_owner = true
+tree_root = SubResource("AnimationNodeBlendTree_fs1wk")
+anim_player = NodePath("../AnimationPlayer")
