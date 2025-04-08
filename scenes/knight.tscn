@@ -34,3 +34,9 @@ transform = Transform3D(1, 0, 0, 0, 1.44, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="RollTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="RollCooldown" type="Timer" parent="."]
+
+[connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
