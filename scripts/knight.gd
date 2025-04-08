@@ -8,13 +8,16 @@ extends CharacterBody3D
 @export var rotation_speed := 5.0
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
+@export var roll_speed := 10.0
 
 var _camera_input_direction := Vector2.ZERO
 var _last_move_direction := Vector3.BACK
+var is_rolling := false
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin: GobotSkin = %GobotSkin
+@onready var roll_timer: Timer = %RollTimer
 
 
 func _input(event: InputEvent) -> void:
@@ -22,6 +25,7 @@ func _input(event: InputEvent) -> void:
         Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
     if event.is_action_pressed('ui_cancel'):
         Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 
 func _unhandled_input(event: InputEvent) -> void:
     var is_camera_motion := (
@@ -31,6 +35,10 @@ func _unhandled_input(event: InputEvent) -> void:
     
     if is_camera_motion:
         _camera_input_direction = event.screen_relative * mouse_sensitivity
+    
+    if event.is_action_pressed('roll') and is_on_floor():
+        is_rolling = true
+
 
 func _physics_process(delta: float) -> void:
     ## Camera
@@ -54,49 +62,57 @@ func _physics_process(delta: float) -> void:
     var move_direction := forward * raw_input.y + right * raw_input.x
     move_direction.y = 0.0
     move_direction = move_direction.normalized()
-
-    var y_velocity := velocity.y
-    velocity.y = 0.0
-    velocity = velocity.move_toward(
-        move_direction * move_speed, acceleration * delta)
-    velocity.y = y_velocity + _gravity * delta
     
-    # Jumping
-    var is_starting_jump := Input.is_action_just_pressed('jump') and is_on_floor()
-    if is_starting_jump:
-        velocity.y += jump_impulse
+    var y_velocity := velocity.y
     
     # Rolling
-    var is_starting_roll := Input.is_action_just_pressed('roll') and is_on_floor()
-    if is_starting_roll:
-        pass
-    
+    if !is_rolling:
+        # Character rotation
+        if move_direction.length() > 0.1:
+            _last_move_direction = move_direction
+            
+            # Calculate target rotation in global space
+            var target_rotation := atan2(_last_move_direction.x, _last_move_direction.z)
+            
+            # lerp the skin's rotation
+            _skin.global_rotation.y = lerp_angle(
+                _skin.global_rotation.y,
+                target_rotation,
+                rotation_speed * delta
+            )
+        
+        velocity.y = 0.0
+        velocity = velocity.move_toward(
+            move_direction * move_speed, acceleration * delta)
+        velocity.y = y_velocity + _gravity * delta
+        
+        # Jumping
+        var is_starting_jump := Input.is_action_just_pressed('jump') and is_on_floor()
+        if is_starting_jump:
+            velocity.y += jump_impulse
+        
+            ## Animation
+        # Movement animations
+        if is_starting_jump:
+            _skin.jump()
+        elif not is_on_floor() and velocity.y < 0:
+            _skin.fall()
+        elif is_on_floor():
+            if move_direction.length() > 0.0:
+                _skin.run()
+            else:
+                _skin.idle()
+    else:
+        if roll_timer.time_left == 0:
+            roll_timer.start()
+        if roll_timer.time_left == roll_timer.wait_time:
+            _skin.edge_grab()
+        velocity.y = 0.0
+        velocity = _last_move_direction * roll_speed
+        velocity.y = y_velocity + _gravity * delta
+        
     move_and_slide()
-    
-    ## Animation
-    # Character rotation
-    if move_direction.length() > 0.1:
-        _last_move_direction = move_direction
-        
-        # Calculate target rotation in global space
-        var target_rotation := atan2(_last_move_direction.x, _last_move_direction.z)
-        
-        # lerp the skin's rotation
-        _skin.global_rotation.y = lerp_angle(
-            _skin.global_rotation.y,
-            target_rotation,
-            rotation_speed * delta
-        )
-    
-    # Movement animations
-    if is_starting_jump:
-        _skin.jump()
-    elif not is_on_floor() and velocity.y < 0:
-        _skin.fall()
-    elif is_on_floor():
-        if move_direction.length() > 0.0:
-            _skin.run()
-        else:
-            _skin.idle()
-    
-    
+
+
+func _on_roll_timer_timeout() -> void:
+    is_rolling = false
