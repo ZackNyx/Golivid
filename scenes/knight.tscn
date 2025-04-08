@@ -1,39 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7ujhkkiv6db1"]
+[gd_scene load_steps=5 format=3 uid="uid://c7ujhkkiv6db1"]
 
-[ext_resource type="Script" uid="uid://b17hch8dl3s0w" path="res://scenes/knight.gd" id="1_dp28g"]
-[ext_resource type="PackedScene" uid="uid://buolotetq6e3t" path="res://scenes/knight_skin.tscn" id="2_3i0j8"]
+[ext_resource type="Script" uid="uid://b17hch8dl3s0w" path="res://scripts/knight.gd" id="1_dp28g"]
+[ext_resource type="PackedScene" uid="uid://cy36aygvs66pn" path="res://addons/gdquest_gobot/gobot_skin.tscn" id="2_3i0j8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dp28g"]
 radius = 0.3
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3i0j8"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_qxgmm"]
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="Knight" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_dp28g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_dp28g")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.63, 0, 0, 0, 1, 0, 0, 0, 0.594, 0, 1, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_3i0j8")
-skeleton = NodePath("../..")
-
 [node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 1.9, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-transform = Transform3D(-1, -4.37114e-08, -7.57103e-08, -4.37114e-08, 1, 0, 7.57103e-08, 1.78814e-07, -1, 0, 0, 0)
+transform = Transform3D(-1, -4.37114e-08, -7.57103e-08, -4.37114e-08, 1, 0, 7.57103e-08, 2.08616e-07, -1, 0, 0.433013, -0.25)
 shape = SubResource("SphereShape3D_qxgmm")
-spring_length = 8.0
+spring_length = 7.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 unique_name_in_owner = true
 
-[node name="KnightSkin" parent="." instance=ExtResource("2_3i0j8")]
+[node name="GobotSkin" parent="." instance=ExtResource("2_3i0j8")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1.44, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="RollTimer" type="Timer" parent="."]
 unique_name_in_owner = true
