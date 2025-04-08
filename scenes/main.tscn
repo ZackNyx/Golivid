@@ -83,9 +83,3 @@ size = Vector3(1, 0.1, 0.2)
 
 [node name="Knight" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(-0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, -0.34202, 4, 0.4, -4.4)
-mouse_sensitivity = null
-move_speed = null
-acceleration = null
-rotation_speed = null
-jump_impulse = null
-_gravity = null
