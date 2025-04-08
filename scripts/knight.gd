@@ -18,6 +18,7 @@ var is_rolling := false
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin: GobotSkin = %GobotSkin
 @onready var roll_timer: Timer = %RollTimer
+@onready var roll_cooldown: Timer = %RollCooldown
 
 
 func _input(event: InputEvent) -> void:
@@ -36,7 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if is_camera_motion:
         _camera_input_direction = event.screen_relative * mouse_sensitivity
     
-    if event.is_action_pressed('roll') and is_on_floor():
+    if event.is_action_pressed('roll') and is_on_floor() and !(0 < roll_cooldown.time_left and roll_cooldown.time_left < roll_cooldown.wait_time):
         is_rolling = true
 
 
@@ -116,3 +117,4 @@ func _physics_process(delta: float) -> void:
 
 func _on_roll_timer_timeout() -> void:
     is_rolling = false
+    roll_cooldown.start()
