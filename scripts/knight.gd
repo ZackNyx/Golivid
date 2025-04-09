@@ -15,7 +15,7 @@ var _last_move_direction := Vector3.BACK
 var is_rolling := false
 
 @onready var _camera_pivot: Node3D = %CameraPivot
-@onready var _camera: Camera3D = %Camera3D
+@onready var _camera: Camera3D = %KnightCamera
 @onready var _skin: GobotSkin = %GobotSkin
 @onready var roll_timer: Timer = %RollTimer
 @onready var roll_cooldown: Timer = %RollCooldown
