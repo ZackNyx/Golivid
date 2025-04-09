@@ -11,6 +11,8 @@ radius = 0.3
 [node name="Knight" type="CharacterBody3D"]
 collision_mask = 3
 script = ExtResource("1_dp28g")
+move_speed = 10.0
+roll_speed = 12.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -25,8 +27,10 @@ transform = Transform3D(-1, -4.37114e-08, -7.57103e-08, -4.37114e-08, 1, 0, 7.57
 shape = SubResource("SphereShape3D_qxgmm")
 spring_length = 7.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+[node name="KnightCamera" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 unique_name_in_owner = true
+cull_mask = 1048573
+current = true
 
 [node name="GobotSkin" parent="." instance=ExtResource("2_3i0j8")]
 unique_name_in_owner = true
@@ -34,9 +38,12 @@ transform = Transform3D(1, 0, 0, 0, 1.44, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="RollTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.25
+wait_time = 0.5
 one_shot = true
 
 [node name="RollCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+one_shot = true
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
