@@ -131,8 +131,8 @@ mesh = SubResource("BoxMesh_tbgi4")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
 shape = SubResource("ConvexPolygonShape3D_tbgi4")
 
-[node name="Giant" parent="." instance=ExtResource("4_jyhfs")]
-transform = Transform3D(20.7292, 0, 0, 0, 20.7292, 0, 0, 0, 20.7292, 0, -11.8, -14)
-
 [node name="Knight" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.759941, 0.4, -3.79753)
+
+[node name="Giant" parent="." instance=ExtResource("4_jyhfs")]
+transform = Transform3D(20.7292, 0, -5.68434e-14, 0, 20.7292, 0, 5.68434e-14, 0, 20.7292, 38.3, -9.9, 0.500001)
