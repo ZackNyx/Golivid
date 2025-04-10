@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtee460wm1k5k"]
+
+[ext_resource type="Texture2D" uid="uid://bmanp1tv2cxq6" path="res://icon.svg" id="1_vwqiv"]
+[ext_resource type="Script" uid="uid://cvndtudtdil18" path="res://xr_origin_3d.gd" id="1_yu5ic"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu5ic"]
+albedo_texture = ExtResource("1_vwqiv")
+
+[sub_resource type="PrismMesh" id="PrismMesh_ojcpv"]
+material = SubResource("StandardMaterial3D_yu5ic")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="XROrigin3D" type="XROrigin3D"]
+script = ExtResource("1_yu5ic")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRCamera3D"]
+mesh = SubResource("PrismMesh_ojcpv")
