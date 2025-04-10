@@ -1,11 +1,13 @@
 extends CharacterBody3D
 
 @export_group('Camera')
+@export var camera_pivot: Node3D
+@export var camera: Camera3D
 @export_range(0.0, 1.0) var mouse_sensitivity := .25
 @export_group('Movement')
 @export var move_speed := 8.0
-@export var acceleration := 30.0
-@export var rotation_speed := 5.0
+@export var acceleration := 40.0
+@export var rotation_speed := 7.0
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
 @export var roll_speed := 10.0
@@ -29,6 +31,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+    # This checks whether or not the game should move the camera
+    # based on if the mouse is moving (InputEventMouseMotion) and
+    # if the mouse is active (Input.MOUSE_MODE_CAPTURED)
     var is_camera_motion := (
         event is InputEventMouseMotion and
         Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
@@ -52,7 +57,9 @@ func _physics_process(delta: float) -> void:
     # Horizontal camera movement
     _camera_pivot.rotation.y -= _camera_input_direction.x * delta
     
-    _camera_input_direction = Vector2.ZERO
+    # Resets camera input direction so that the camera
+    # doesn't keep moving infinitely.
+    _camera_input_direction = Vector2.ZERO 
     
     ## Movement
     var raw_input := Input.get_vector('move_left', 'move_right',
@@ -66,7 +73,7 @@ func _physics_process(delta: float) -> void:
     
     var y_velocity := velocity.y
     
-    # Rolling
+    ## Movement logic
     if !is_rolling:
         # Character rotation
         if move_direction.length() > 0.1:
@@ -92,7 +99,7 @@ func _physics_process(delta: float) -> void:
         if is_starting_jump:
             velocity.y += jump_impulse
         
-            ## Animation
+        ## Animation
         # Movement animations
         if is_starting_jump:
             _skin.jump()
@@ -103,7 +110,7 @@ func _physics_process(delta: float) -> void:
                 _skin.run()
             else:
                 _skin.idle()
-    else:
+    else: # Rolling
         if roll_timer.time_left == 0:
             roll_timer.start()
         if roll_timer.time_left == roll_timer.wait_time:
