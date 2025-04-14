@@ -19,23 +19,23 @@ sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_tbgi4"]
-size = Vector3(3, 3, 3)
+[sub_resource type="BoxMesh" id="BoxMesh_tefeu"]
+size = Vector3(1.5, 1.5, 1.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tefeu"]
-points = PackedVector3Array(-1.5, -1.49971, -1.49971, 1.5, 1.49978, 1.49978, 1.5, -1.49978, 1.49978, 1.5, 1.49978, -1.49978, -1.5, 1.49971, 1.49971, 1.5, -1.49978, -1.49978, -1.5, -1.49971, 1.49971, -1.5, 1.49971, -1.49971)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o6xl0"]
+points = PackedVector3Array(0.75, 0.75, 0.75, 0.75, 0.75, -0.75, -0.75, 0.75, 0.75, 0.75, -0.75, 0.75, 0.75, -0.75, -0.75, -0.75, 0.75, -0.75, -0.75, -0.75, 0.75, -0.75, -0.75, -0.75)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0wfyh")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Level" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level"]
 environment = SubResource("Environment_0wfyh")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 4.1, -10.2)
 shadow_enabled = true
-
-[node name="Level" type="Node" parent="."]
 
 [node name="Floor" type="CSGCombiner3D" parent="Level"]
 use_collision = true
@@ -121,23 +121,27 @@ size = Vector3(1, 0.1, 0.2)
 transform = Transform3D(-8.39259e-08, 0, -34.9184, 0, 3.648, 0, 1.92, 0, -1.52633e-06, 2.1, 2.148, 5)
 size = Vector3(1, 0.1, 0.2)
 
+[node name="StartXR" parent="." instance=ExtResource("4_tbgi4")]
+
 [node name="VRViewport" type="SubViewport" parent="."]
 render_target_update_mode = 4
 
-[node name="StartXR" parent="VRViewport" instance=ExtResource("4_tbgi4")]
-
-[node name="Giant" parent="VRViewport" instance=ExtResource("4_jyhfs")]
+[node name="Giant" parent="." instance=ExtResource("4_jyhfs")]
 transform = Transform3D(-5.57366, 0, -15.3135, 0, 16.2963, 0, 15.3135, 0, -5.57366, -0.9, -9.91431, 5.5)
 script = null
 
 [node name="Knight" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1388, -10.2742)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.1388, -8.6742)
 
 [node name="PickableObject" parent="." instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 6.2993, -4.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0138185, 1.89736, -0.00855422)
+mass = 236.529
+gravity_scale = 0.228
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject"]
-mesh = SubResource("BoxMesh_tbgi4")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_tefeu")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
-shape = SubResource("ConvexPolygonShape3D_tefeu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("ConvexPolygonShape3D_o6xl0")
