@@ -19,11 +19,12 @@ sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_tefeu"]
-size = Vector3(1.5, 1.5, 1.5)
+[sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
+radius = 1.5
+height = 3.0
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o6xl0"]
-points = PackedVector3Array(0.75, 0.75, 0.75, 0.75, 0.75, -0.75, -0.75, 0.75, 0.75, 0.75, -0.75, 0.75, 0.75, -0.75, -0.75, -0.75, 0.75, -0.75, -0.75, -0.75, 0.75, -0.75, -0.75, -0.75)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tefeu"]
+points = PackedVector3Array(-0.273325, -1.46766, -0.135642, 0.276805, 1.46656, 0.138939, 0.36732, 1.41639, 0.321448, -1.31971, 0.182129, 0.685111, -0.455412, 0.182694, -1.41518, 1.37279, -0.3198, 0.504448, 0.0474292, -0.275184, 1.4705, 1.14025, -0.182018, -0.954606, -1.36743, 0.273601, -0.545789, 0.951215, 0.904015, -0.721342, -0.588666, 1.31676, -0.406781, -0.0893227, 0.91062, 1.18562, 0.775235, -1.22835, 0.365444, -0.813701, -1.08708, 0.635619, -0.226043, -1.00182, -1.09142, -1.2701, -0.681157, -0.40688, 1.08633, 0.632365, 0.814943, 0.907059, -1.08639, -0.49598, -0.904122, 1.08694, 0.499634, 0.138295, 0.910076, -1.18151, 1.37184, 0.593668, -0.0895675, 0.458464, -0.182555, -1.41411, 0.229042, -1.0912, 1.00175, -0.773726, 0.0911583, 1.27877, 0.822582, -0.227962, 1.23264, -0.908193, -0.363658, -1.13544, -0.857282, 0.723137, -0.992791, 1.42056, -0.457572, -0.135342, -1.27538, 0.775125, -0.134868, -1.36678, -0.45607, 0.412049, -0.812721, -0.633157, 1.08748, 0.455922, 0.726442, 1.2278)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0wfyh")
@@ -121,27 +122,23 @@ size = Vector3(1, 0.1, 0.2)
 transform = Transform3D(-8.39259e-08, 0, -34.9184, 0, 3.648, 0, 1.92, 0, -1.52633e-06, 2.1, 2.148, 5)
 size = Vector3(1, 0.1, 0.2)
 
-[node name="StartXR" parent="." instance=ExtResource("4_tbgi4")]
-
 [node name="VRViewport" type="SubViewport" parent="."]
 render_target_update_mode = 4
 
-[node name="Giant" parent="." instance=ExtResource("4_jyhfs")]
-transform = Transform3D(-5.57366, 0, -15.3135, 0, 16.2963, 0, 15.3135, 0, -5.57366, -0.9, -9.91431, 5.5)
+[node name="Giant" parent="VRViewport" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(-0.34202, 0, -0.939693, 0, 1, 0, 0.939693, 0, -0.34202, -0.9, -8.91431, 5.5)
 script = null
+
+[node name="StartXR" parent="VRViewport" instance=ExtResource("4_tbgi4")]
 
 [node name="Knight" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.1388, -8.6742)
 
 [node name="PickableObject" parent="." instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0138185, 1.89736, -0.00855422)
-mass = 236.529
-gravity_scale = 0.228
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("BoxMesh_tefeu")
+mesh = SubResource("SphereMesh_tbgi4")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-shape = SubResource("ConvexPolygonShape3D_o6xl0")
+shape = SubResource("ConvexPolygonShape3D_tefeu")
