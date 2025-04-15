@@ -9,7 +9,8 @@
 size = Vector3(2, 2, 2)
 
 [node name="Giant" type="XROrigin3D"]
-transform = Transform3D(7.4, 0, 0, 0, 7.4, 0, 0, 0, 7.4, 0, 0, 0)
+world_scale = 16.0
+current = true
 script = ExtResource("1_sx7hc")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
