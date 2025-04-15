@@ -11,6 +11,10 @@ extends CharacterBody3D
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
 @export var roll_speed := 10.0
+@export_group('Stats')
+@export var health := 20
+@export var has_hammer := true
+@export var grapples := 3
 
 var _camera_input_direction := Vector2.ZERO
 var _last_move_direction := Vector3.BACK
