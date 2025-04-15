@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="4_qxkev"]
 
 [node name="XROrigin3D" type="XROrigin3D"]
+world_scale = 16.0
 script = ExtResource("1_yu5ic")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]

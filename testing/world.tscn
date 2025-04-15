@@ -38,7 +38,8 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Giant" parent="." instance=ExtResource("1_vteb2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499997, 0)
+world_scale = 16.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
@@ -50,12 +51,11 @@ shape = SubResource("BoxShape3D_fj7yv")
 mesh = SubResource("BoxMesh_tlwt5")
 
 [node name="PickableObject" parent="." instance=ExtResource("2_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0138185, -0.00264117, -0.00855422)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0138185, 0.597359, -0.00855422)
 mass = 236.529
 gravity_scale = 0.228
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("BoxMesh_aqk2v")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
