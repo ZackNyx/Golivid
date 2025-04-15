@@ -27,6 +27,8 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="LeftHandController" instance=ExtResource("1_glfi2")]
 
 [node name="FunctionPickup" parent="LeftHandController" instance=ExtResource("3_ukwaf")]
+grab_distance = 1.0
+ranged_enable = false
 
 [node name="RightHandController" type="XRController3D" parent="."]
 tracker = &"right_hand"
@@ -34,3 +36,5 @@ tracker = &"right_hand"
 [node name="RightHand" parent="RightHandController" instance=ExtResource("2_sx7hc")]
 
 [node name="FunctionPickup" parent="RightHandController" instance=ExtResource("3_ukwaf")]
+grab_distance = 1.0
+ranged_enable = false
