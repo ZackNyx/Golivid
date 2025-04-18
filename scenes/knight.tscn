@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7ujhkkiv6db1"]
+[gd_scene load_steps=8 format=3 uid="uid://c7ujhkkiv6db1"]
 
 [ext_resource type="Script" uid="uid://b17hch8dl3s0w" path="res://scripts/knight.gd" id="1_dp28g"]
 [ext_resource type="PackedScene" uid="uid://cy36aygvs66pn" path="res://addons/gdquest_gobot/gobot_skin.tscn" id="2_3i0j8"]
+[ext_resource type="Shader" uid="uid://bmbuqvq3dav83" path="res://shaders/ui_aim.gdshader" id="3_0dyjn"]
+[ext_resource type="Texture2D" uid="uid://bl5cqyayoye4n" path="res://assets/crosshair.svg" id="4_0dyjn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dp28g"]
 radius = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qxgmm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5fsgc"]
+shader = ExtResource("3_0dyjn")
 
 [node name="Knight" type="CharacterBody3D"]
 collision_mask = 3
@@ -19,7 +24,7 @@ shape = SubResource("CapsuleShape3D_dp28g")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 1.9, 0)
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.2, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
 transform = Transform3D(-1, -4.37114e-08, -7.57103e-08, -4.37114e-08, 1, 0, 7.57103e-08, 2.08616e-07, -1, 0, 0.433013, -0.25)
@@ -42,5 +47,33 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/Control"]
+material = SubResource("ShaderMaterial_5fsgc")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0dyjn")
+expand_mode = 1
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
