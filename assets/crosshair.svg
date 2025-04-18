@@ -1,0 +1,7 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+	<title>circle</title>
+	<style>
+		.s0 { fill: #000000 } 
+	</style>
+	<path id="Path 0" class="s0" d="m189 88v100h-189v24h189v199h24v-199h187v-24h-187v-200h-24z"/>
+</svg>
