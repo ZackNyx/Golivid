@@ -29,6 +29,7 @@ var grapple_direction: Vector3
 @onready var _skin: GobotSkin = %GobotSkin
 @onready var roll_timer: Timer = %RollTimer
 @onready var roll_cooldown: Timer = %RollCooldown
+@onready var grapple_cast: RayCast3D = %GrappleCast
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed('left_click'):
@@ -51,6 +52,14 @@ func _unhandled_input(event: InputEvent) -> void:
     
     if event.is_action_pressed('roll') and is_on_floor() and !(0 < roll_cooldown.time_left and roll_cooldown.time_left < roll_cooldown.wait_time):
         is_rolling = true
+    
+    if event.is_action_pressed('grapple') and grapple_cast.is_colliding() and grapples > 0:
+        grapple_target = grapple_cast.get_collision_point()
+        is_grappling = true
+        grapples -= 1
+    
+    if event.is_action_released('grapple'):
+        is_grappling = false
 
 
 func _physics_process(delta: float) -> void:
@@ -59,7 +68,7 @@ func _physics_process(delta: float) -> void:
     _camera_pivot.rotation.x += _camera_input_direction.y * delta
     _camera_pivot.rotation.x = clamp(
         _camera_pivot.rotation.x,
-        -PI/6, PI/3
+        -(2*PI)/5, PI/3
     )
     # Horizontal camera movement
     _camera_pivot.rotation.y -= _camera_input_direction.x * delta
@@ -80,8 +89,31 @@ func _physics_process(delta: float) -> void:
     
     var y_velocity := velocity.y
     
-    ## Movement logic
-    if !is_rolling:
+    # Game logic
+    if is_on_floor():
+        grapples = 3
+    
+    # Movement logic
+    if is_rolling:
+        if roll_timer.time_left == 0:
+            roll_timer.start()
+        if roll_timer.time_left == roll_timer.wait_time:
+            _skin.edge_grab()
+        velocity.y = 0.0
+        velocity = _last_move_direction * roll_speed
+        velocity.y = y_velocity + _gravity * delta
+    elif is_grappling:
+        grapple_direction = (grapple_target - transform.origin) * grapple_speed
+        #if transform.origin.distance_to(grapple_target) < 5:
+        velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*4)
+        #elif transform.origin.distance_to(grapple_target) < 2:
+        #    velocity = velocity.move_toward(grapple_direction, grapple_speed * 4)
+        #else:
+         #   velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*2)
+        if transform.origin.distance_to(grapple_target) < 1 and velocity.x < 5 and velocity.z < 5:
+            is_grappling = false
+
+    else: 
         # Character rotation
         if move_direction.length() > 0.1:
             _last_move_direction = move_direction
@@ -106,6 +138,9 @@ func _physics_process(delta: float) -> void:
         if is_starting_jump:
             velocity.y += jump_impulse
         
+        # Grappling
+        var is_grappling := Input.is_action_pressed('grapple')
+        
         ## Animation
         # Movement animations
         if is_starting_jump:
@@ -117,14 +152,6 @@ func _physics_process(delta: float) -> void:
                 _skin.run()
             else:
                 _skin.idle()
-    else: # Rolling
-        if roll_timer.time_left == 0:
-            roll_timer.start()
-        if roll_timer.time_left == roll_timer.wait_time:
-            _skin.edge_grab()
-        velocity.y = 0.0
-        velocity = _last_move_direction * roll_speed
-        velocity.y = y_velocity + _gravity * delta
         
     move_and_slide()
 
