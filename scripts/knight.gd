@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
 @export var roll_speed := 15.0
+@export var grapple_speed := 15.0
 @export_group('Stats')
 @export var health := 20
 @export var has_hammer := true
@@ -19,6 +20,9 @@ extends CharacterBody3D
 var _camera_input_direction := Vector2.ZERO
 var _last_move_direction := Vector3.BACK
 var is_rolling := false
+var is_grappling := false
+var grapple_target: Vector3
+var grapple_direction: Vector3
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %KnightCamera
