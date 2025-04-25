@@ -9,6 +9,7 @@
 radius = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qxgmm"]
+radius = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5fsgc"]
 shader = ExtResource("3_0dyjn")
