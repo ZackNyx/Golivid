@@ -46,6 +46,11 @@ transform = Transform3D(16.5581, 0, 0, 0, 0.060368, 0, 0, 0, 20.6646, -2.05965, 
 use_collision = true
 size = Vector3(1.8667, 2.1, 1.7)
 
+[node name="Floor2" type="CSGBox3D" parent="Level/Floor"]
+transform = Transform3D(64.5766, 0, 0, 0, 0.060368, 0, 0, 0, 113.655, -2.05965, -24.8267, -7.20616)
+use_collision = true
+size = Vector3(1.8667, 2.1, 1.7)
+
 [node name="Grounded Stuctures" type="CSGCombiner3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.99149, 0, -7.66449)
 use_collision = true
@@ -132,7 +137,7 @@ script = null
 [node name="StartXR" parent="VRViewport" instance=ExtResource("4_tbgi4")]
 
 [node name="Knight" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.1388, -8.6742)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.2388, -8.6742)
 
 [node name="PickableObject" parent="." instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0138185, 1.89736, -0.00855422)
