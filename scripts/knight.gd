@@ -15,7 +15,7 @@ extends CharacterBody3D
 @export_group('Stats')
 @export var health := 20
 @export var has_hammer := true
-@export var grapples := 3
+@export var grapples := 1000
 
 var _camera_input_direction := Vector2.ZERO
 var _last_move_direction := Vector3.BACK
