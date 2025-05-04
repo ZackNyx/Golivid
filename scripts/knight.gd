@@ -136,6 +136,10 @@ func _physics_process(delta: float) -> void:
         if is_starting_jump:
             velocity.y += jump_impulse
         
+        # Friction
+        if velocity.y < 3 and raw_input == Vector2.ZERO:
+            velocity.move_toward(Vector3.ZERO, 20000000000*delta)
+        
         # Grappling
         var is_grappling := Input.is_action_pressed('grapple')
         if is_on_floor():
