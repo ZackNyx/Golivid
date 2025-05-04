@@ -77,7 +77,9 @@ func _physics_process(delta: float) -> void:
     # doesn't keep moving infinitely.
     _camera_input_direction = Vector2.ZERO 
     
-    ## Movement
+    
+    ## Physics
+    # Movement logic
     var raw_input := Input.get_vector('move_left', 'move_right',
     'move_forward', 'move_backward')
     var forward := _camera.global_basis.z
@@ -89,11 +91,7 @@ func _physics_process(delta: float) -> void:
     
     var y_velocity := velocity.y
     
-    # Game logic
-    if is_on_floor():
-        grapples = 3
     
-    # Movement logic
     if is_rolling:
         if roll_timer.time_left == 0:
             roll_timer.start()
@@ -140,6 +138,8 @@ func _physics_process(delta: float) -> void:
         
         # Grappling
         var is_grappling := Input.is_action_pressed('grapple')
+        if is_on_floor():
+            grapples = 3
         
         ## Animation
         # Movement animations
