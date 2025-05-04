@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7ujhkkiv6db1"]
+[gd_scene load_steps=9 format=3 uid="uid://c7ujhkkiv6db1"]
 
 [ext_resource type="Script" uid="uid://b17hch8dl3s0w" path="res://scripts/knight.gd" id="1_dp28g"]
 [ext_resource type="PackedScene" uid="uid://cy36aygvs66pn" path="res://addons/gdquest_gobot/gobot_skin.tscn" id="2_3i0j8"]
 [ext_resource type="Shader" uid="uid://bmbuqvq3dav83" path="res://shaders/ui_aim.gdshader" id="3_0dyjn"]
 [ext_resource type="Texture2D" uid="uid://bl5cqyayoye4n" path="res://assets/crosshair.svg" id="4_0dyjn"]
+[ext_resource type="Texture2D" uid="uid://bj7nr6xeis8a4" path="res://blank-red-and-green-circle-icon-button-png.png" id="5_5fsgc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dp28g"]
 radius = 0.3
@@ -29,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.2, 0)
 [node name="GrappleCast" type="RayCast3D" parent="CameraPivot"]
 unique_name_in_owner = true
 transform = Transform3D(-1, -4.37117e-08, -7.57103e-08, -7.57103e-08, -2.98023e-07, 1, -4.37118e-08, 1, 2.98023e-07, -7.43099e-08, 0.433013, 1.45)
-target_position = Vector3(0, 100000, 0)
+target_position = Vector3(0, 1000, 0)
 collision_mask = 7
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
@@ -65,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="UILayer/Control"]
+[node name="Crosshair" type="TextureRect" parent="UILayer/Control"]
 material = SubResource("ShaderMaterial_5fsgc")
 layout_mode = 1
 anchors_preset = 8
@@ -80,6 +81,13 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_0dyjn")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/Control"]
+layout_mode = 0
+offset_right = 376.0
+offset_bottom = 188.0
+texture = ExtResource("5_5fsgc")
 expand_mode = 1
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
