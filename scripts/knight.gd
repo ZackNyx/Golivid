@@ -26,6 +26,7 @@ var is_rolling := false
 var is_grappling := false
 var grapple_target: Vector3
 var grapple_direction: Vector3
+var grapple_line: MeshInstance3D
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %KnightCamera
@@ -58,11 +59,27 @@ func _unhandled_input(event: InputEvent) -> void:
     
     if event.is_action_pressed('grapple') and grapple_cast.is_colliding() and grapples > 0:
         grapple_target = grapple_cast.get_collision_point()
-        is_grappling = true
-        grapples -= 1
+        if grapple_target:
+            is_grappling = true
+            grapple_line = line(Vector3(global_position.x, global_position.y + 1, global_position.z), grapple_target, Color.BLACK)
+            grapples -= 1
     
     if event.is_action_released('grapple'):
         is_grappling = false
+
+
+func _process(delta: float) -> void:
+    if is_grappling:
+        var grapple_line_immediate_mesh = grapple_line.mesh as ImmediateMesh
+        grapple_line_immediate_mesh.clear_surfaces()
+        grapple_line_immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+        grapple_line_immediate_mesh.surface_add_vertex(Vector3(global_position.x, global_position.y + 1, global_position.z))
+        grapple_line_immediate_mesh.surface_add_vertex(grapple_target)
+        grapple_line_immediate_mesh.surface_end()	
+    else:
+        if grapple_line:
+            grapple_line.free()
+        
 
 
 func _physics_process(delta: float) -> void:
@@ -165,3 +182,24 @@ func _physics_process(delta: float) -> void:
 func _on_roll_timer_timeout() -> void:
     is_rolling = false
     roll_cooldown.start()
+
+
+func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
+    var mesh_instance := MeshInstance3D.new()
+    var immediate_mesh := ImmediateMesh.new()
+    var material := ORMMaterial3D.new()
+    
+    mesh_instance.mesh = immediate_mesh
+    mesh_instance.cast_shadow = 0
+    
+    immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
+    immediate_mesh.surface_add_vertex(pos1)
+    immediate_mesh.surface_add_vertex(pos2)
+    immediate_mesh.surface_end()
+    
+    material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    material.albedo_color = color
+    
+    get_tree().get_root().add_child(mesh_instance)
+    
+    return mesh_instance
