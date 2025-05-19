@@ -100,4 +100,10 @@ grow_vertical = 2
 texture = ExtResource("5_5fsgc")
 expand_mode = 1
 
+[node name="GrapplesIndicator" type="RichTextLabel" parent="UILayer/Control"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 40.0
+text = "Grapples: "
+
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
