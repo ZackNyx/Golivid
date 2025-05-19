@@ -7,7 +7,7 @@ extends CharacterBody3D
 @export_group('Movement')
 @export var move_speed := 8.0
 @export var acceleration := 40.0
-@export var rotation_speed := 7.0
+@export var rotation_speed := 15.0
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
 @export var roll_speed := 15.0
@@ -116,7 +116,7 @@ func _physics_process(delta: float) -> void:
 
     else: 
         # Character rotation
-        if move_direction.length() > 0.1:
+        if move_direction.length() > 0.1 and is_on_floor():
             _last_move_direction = move_direction
             
             # Calculate target rotation in global space
