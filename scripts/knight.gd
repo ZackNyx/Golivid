@@ -145,7 +145,7 @@ func _physics_process(delta: float) -> void:
         # Grappling
         var is_grappling := Input.is_action_pressed('grapple')
         if is_on_floor():
-            grapples = 3
+            grapples = max_grapples
         
         ## Animation
         # Movement animations
