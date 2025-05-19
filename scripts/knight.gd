@@ -13,8 +13,10 @@ extends CharacterBody3D
 @export var roll_speed := 15.0
 @export var grapple_speed := 15.0
 @export_group('Stats')
+@export var max_health := 20
 @export var health := 20
 @export var has_hammer := true
+@export var max_grapples := 1000
 @export var grapples := 1000
 
 var _camera_input_direction := Vector2.ZERO
