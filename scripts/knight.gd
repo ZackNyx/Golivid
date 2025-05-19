@@ -105,12 +105,12 @@ func _physics_process(delta: float) -> void:
         velocity.y = y_velocity + _gravity * delta
     elif is_grappling:
         grapple_direction = (grapple_target - transform.origin) * grapple_speed
-        #if transform.origin.distance_to(grapple_target) < 5:
-        velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*4)
-        #elif transform.origin.distance_to(grapple_target) < 2:
-        #    velocity = velocity.move_toward(grapple_direction, grapple_speed * 4)
-        #else:
-         #   velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*2)
+        if transform.origin.distance_to(grapple_target) < 5:
+            velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*4)
+        elif transform.origin.distance_to(grapple_target) < 2:
+            velocity = velocity.move_toward(grapple_direction, grapple_speed * 4)
+        else:
+            velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*2)
         if transform.origin.distance_to(grapple_target) < 1 and velocity.x < 5 and velocity.z < 5:
             is_grappling = false
 
