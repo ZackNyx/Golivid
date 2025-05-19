@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8bhworai2ryt" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c7ujhkkiv6db1" path="res://scenes/knight.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://bmanp1tv2cxq6" path="res://icon.svg" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://bok52thgldln7" path="res://assets/abstract-horizontal-grid-lines-g.png" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b0quhwueowmq4" path="res://scenes/giant.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="5_tbgi4"]
@@ -22,6 +22,7 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
 albedo_texture = ExtResource("2_tefeu")
+albedo_texture_force_srgb = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
 radius = 1.5
@@ -40,7 +41,6 @@ environment = SubResource("Environment_0wfyh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 4.1, -10.2)
-shadow_enabled = true
 
 [node name="Floor" type="CSGCombiner3D" parent="Level"]
 use_collision = true
