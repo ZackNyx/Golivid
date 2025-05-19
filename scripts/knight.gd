@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var jump_impulse := 20.0
 @export var _gravity := -50.0
 @export var roll_speed := 15.0
-@export var grapple_speed := 15.0
+@export var grapple_speed := 12.0
 @export_group('Stats')
 @export var max_health := 20
 @export var health := 20
