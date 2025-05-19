@@ -16,6 +16,7 @@ extends CharacterBody3D
 @export var max_health := 20
 @export var health := 20
 @export var has_hammer := true
+@export var rockets := 5
 @export var max_grapples := 1000
 @export var grapples := 1000
 
