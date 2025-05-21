@@ -9,6 +9,7 @@
 size = Vector3(2, 2, 2)
 
 [node name="Giant" type="XROrigin3D"]
+world_scale = 16.0
 current = true
 script = ExtResource("1_sx7hc")
 
