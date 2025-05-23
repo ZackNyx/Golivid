@@ -1,6 +1,6 @@
 extends RigidBody3D
 
 
-func _ready() -> void:
+func _physics_process(delta: float) -> void:
     pass
-    # set_rotation(Vector3(rotation.x, rotation.y, deg_to_rad(45)))
+    #set_rotation(Vector3(rotation.x, rotation.y, linear_velocity.z))
