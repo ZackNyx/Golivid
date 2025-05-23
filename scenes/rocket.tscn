@@ -14,6 +14,7 @@ gravity_scale = 0.0
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
+constant_force = Vector3(0, -0.2, 3)
 script = ExtResource("1_3341w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
