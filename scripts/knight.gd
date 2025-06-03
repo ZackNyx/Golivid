@@ -79,7 +79,6 @@ func _process(delta: float) -> void:
     else:
         if grapple_line:
             grapple_line.free()
-        
 
 
 func _physics_process(delta: float) -> void:
@@ -117,19 +116,18 @@ func _physics_process(delta: float) -> void:
             roll_timer.start()
         if roll_timer.time_left == roll_timer.wait_time:
             _skin.edge_grab()
-        velocity.y = 0.0
+        velocity = Vector3.ZERO
         velocity = _last_move_direction * roll_speed
         velocity.y = y_velocity + _gravity * delta
     elif is_grappling:
         grapple_direction = (grapple_target - transform.origin) * grapple_speed
-        if transform.origin.distance_to(grapple_target) < 5:
-            velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*4)
-        elif transform.origin.distance_to(grapple_target) < 2:
-            velocity = velocity.move_toward(grapple_direction, grapple_speed * 4)
-        else:
-            velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*2)
-        if transform.origin.distance_to(grapple_target) < 1 and velocity.x < 5 and velocity.z < 5:
+        print('GD: ', grapple_direction)
+        velocity = velocity.move_toward(grapple_direction, grapple_speed * (delta*8)*2)
+        if transform.origin.distance_to(grapple_target) < 1:
             is_grappling = false
+            _last_move_direction = grapple_direction.clamp(-Vector3.ONE, Vector3.ONE)
+            print('LMD: ', _last_move_direction)
+            is_rolling = true
 
     else: 
         # Character rotation
@@ -176,6 +174,7 @@ func _physics_process(delta: float) -> void:
             else:
                 _skin.idle()
         
+    #print(move_direction)
     move_and_slide()
 
 
